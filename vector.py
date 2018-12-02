@@ -25,7 +25,7 @@ class Vector:
         return Vector(*(scalar * decimal.Decimal(a) for a in self.coordinates))
 
     def magnitude(self):
-        return decimal.Decimal(math.sqrt(sum(a*a for a in self.coordinates)))
+        return sum(a*a for a in self.coordinates).sqrt()
 
     def normalize(self):
         mag = self.magnitude()
