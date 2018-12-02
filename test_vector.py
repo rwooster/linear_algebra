@@ -75,6 +75,22 @@ class TestVector(unittest.TestCase):
 
         self.__compare(expected, result)
 
+    def test_parallel(self):
+        result = [Vector(-7.579, -7.88).is_parallel(Vector(22.737, 23.64)),
+                  Vector(2.079, 9.97, 4.172).is_parallel(Vector(-9.231, 6.639, -7.245)),
+                  Vector(-2.238, -7.284, -1.214).is_parallel(Vector(-1.821, 1.072, -2.94)),
+                  Vector(2.118, 4.827).is_parallel(Vector(0, 0))]
+
+        #print(result)
+
+    def test_orthogonal(self):
+        result = [Vector(-7.579, -7.88).is_orthogonal(Vector(22.737, 23.64)),
+                  Vector(2.079, 9.97, 4.172).is_orthogonal(Vector(-9.231, 6.639, -7.245)),
+                  Vector(-2.238, -7.284, -1.214).is_orthogonal(Vector(-1.821, 1.072, -2.94)),
+                  Vector(2.118, 4.827).is_orthogonal(Vector(0, 0))]
+
+        print(result)
+
 
 if __name__ == "__main__":
     unittest.main()

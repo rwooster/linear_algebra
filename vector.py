@@ -39,7 +39,19 @@ class Vector:
 
     def theta(self, rhs):
         x = self.dot(rhs) / (self.magnitude() * rhs.magnitude())
+        x = round(x, 5)
         return math.acos(x)
 
     def theta_degrees(self, rhs):
         return self.theta(rhs) * (180 / math.pi)
+
+    def is_orthogonal(self, rhs):
+        epsilon = 1E-9
+        return abs(self.dot(rhs) < epsilon)
+
+    def is_parallel(self, rhs):
+        angle = self.theta(rhs)
+
+        return angle == decimal.Decimal(math.pi) or \
+               angle == decimal.Decimal('0.0')
+
