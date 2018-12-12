@@ -7,6 +7,7 @@ class Vector:
 
     def __init__(self, *coordinates):
         self.coordinates = tuple(decimal.Decimal(x) for x in coordinates)
+        self.dimension = len(coordinates)
 
     def __str__(self):
         coordinate_str = ",".join(str(x) for x in self.coordinates)
@@ -43,7 +44,7 @@ class Vector:
         return math.acos(x)
 
     def theta_degrees(self, rhs):
-        return self.theta(rhs) * (180 / math.pi)
+        return self.theta(rhs) * (180.0 / math.pi)
 
     def is_orthogonal(self, rhs):
         epsilon = 1E-9

@@ -1,6 +1,6 @@
 from decimal import Decimal, getcontext
 
-from vector_udacity import Vector
+from vector import Vector
 
 getcontext().prec = 30
 
@@ -34,7 +34,7 @@ class Line(object):
             initial_coefficient = n[initial_index]
 
             basepoint_coords[initial_index] = c/initial_coefficient
-            self.basepoint = Vector(basepoint_coords)
+            self.basepoint = Vector(*basepoint_coords)
 
         except Exception as e:
             if str(e) == Line.NO_NONZERO_ELTS_FOUND_MSG:
@@ -102,17 +102,17 @@ class Line(object):
 
         connecting_coordinates = []
         for i in range(self.dimension):
-            connecting_coordinates.append(rhs.coordinates[i] - lhs.coordinates[i])
-        connecting_vector = Vector(connecting_coordinates)
+            connecting_coordinates.append(rhs.normal_vector[i] - self.normal_vector[i])
+        connecting_vector = Vector(*connecting_coordinates)
 
-        return connecting_vector.is_orthogonal_to(self.normal_vector) and \
-               connecting_vector.is_orthogonal_to(rhs.normal_vector)
+        return connecting_vector.is_orthogonal(Vector(*self.normal_vector)) and \
+               connecting_vector.is_orthogonal(Vector(*rhs.normal_vector))
 
 
 def are_parallel(lhs, rhs):
-    lhs_normal = Vector(lhs.normal_vector)
-    rhs_normal = Vector(rhs.normal_vector)
-    return lhs_normal.is_parallel_to(rhs_normal)
+    lhs_normal = Vector(*lhs.normal_vector)
+    rhs_normal = Vector(*rhs.normal_vector)
+    return lhs_normal.is_parallel(rhs_normal)
 
 def get_intersection(lhs, rhs):
     if lhs == rhs:
@@ -122,7 +122,7 @@ def get_intersection(lhs, rhs):
 
     A = lhs.normal_vector[0]
     B = lhs.normal_vector[1]
-    A = rhs.normal_vector[0]
+    C = rhs.normal_vector[0]
     D = rhs.normal_vector[1]
 
     k1 = lhs.constant_term
