@@ -1,5 +1,5 @@
 use std::fmt;
-use std::ops::Add;
+use std::ops::{Add, Sub};
 
 #[derive(Debug)]
 pub struct LinearVector {
@@ -24,6 +24,14 @@ impl Add for LinearVector {
 
     fn add(self, other: Self) -> LinearVector {
         LinearVector::new(self.coordinates.iter().zip(&other.coordinates).map(|(a, b)| a+b).collect())
+    }
+}
+
+impl Sub for LinearVector {
+    type Output = LinearVector;
+
+    fn sub(self, other: Self) -> LinearVector {
+        LinearVector::new(self.coordinates.iter().zip(&other.coordinates).map(|(a, b)| a-b).collect())
     }
 }
 
@@ -57,6 +65,15 @@ mod tests {
         let expected_sum = LinearVector::new(vec!(2, 4, 6));
 
         assert!(vector1 + vector2 == expected_sum);
+    }
+
+    #[test]
+    fn test_subtraction() {
+        let vector1 = LinearVector::new(vec!(4, 4, 3));
+        let vector2 = LinearVector::new(vec!(1, 2, 3));
+        let expected_difference = LinearVector::new(vec!(3, 2, 0));
+
+        assert!(vector1 - vector2 == expected_difference);
     }
 }
 
