@@ -39,6 +39,10 @@ impl LinearVector {
 	pub fn new(coordinates_in:Vec<i32>) -> LinearVector {
 		LinearVector {dimension:coordinates_in.len(), coordinates: coordinates_in}
 	}
+
+    pub fn scalar_multiply(&self, scalar: i32) -> LinearVector {
+        LinearVector::new(self.coordinates.iter().map(|a| a*scalar).collect())
+    }
 }
 
 #[cfg(test)]
@@ -74,6 +78,15 @@ mod tests {
         let expected_difference = LinearVector::new(vec!(3, 2, 0));
 
         assert!(vector1 - vector2 == expected_difference);
+    }
+
+    #[test]
+    fn test_scalar_multiply() {
+        let vector = LinearVector::new(vec!(1, 2, 3, 4));
+        let doubled = vector.scalar_multiply(2);
+        let expected = LinearVector::new(vec!(2, 4, 6, 8));
+
+        assert!(doubled == expected);
     }
 }
 
